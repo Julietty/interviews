@@ -10,14 +10,14 @@ class EfficientNet():
         device: torch.device = torch.device('cpu'),
         data_parallel: bool = True
     ):
+        self.device = device
         # Trunk + embedder structure for pytorch_metric_learning library
         self.trunk = torchvision.models.efficientnet_b3(weights=torchvision.models.EfficientNet_B3_Weights.DEFAULT)
         trunk_output_size = self.trunk.classifier[1].in_features
         self.trunk.classifier = torch.nn.Identity()
         self.trunk.to(device)
         
-        
-        simple_embedder = torch.nn.Sequential(torch.nn.Linear(trunk_output_size, embedding_size))
+        simple_embedder = torch.nn.Linear(trunk_output_size, embedding_size)
         self.embedder = simple_embedder.to(device)
 
         if data_parallel:
@@ -48,6 +48,7 @@ class EfficientNet():
             trunk=self.trunk,
             embedder=self.embedder,
             normalize_embeddings=normalize_embeddings,
+            data_device=self.device
         )
 
 

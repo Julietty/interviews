@@ -64,7 +64,7 @@ class Recognizer():
             Initialize main model with weight, which located at trunk_path and embedder_path.
         '''
         self.model = EfficientNet(embedding_size=embedding_size, data_parallel=False)
-        self.model.load(self.trunk_path, self.embedder_path, device)
+        self.model.load(self.trunk_path, self.embedder_path, device=device)
         self.model.set_inference_instance()
 
     
@@ -75,7 +75,7 @@ class Recognizer():
         ''' 
         logging.info("Start training knn...")
         self.model.inference_model.train_knn(self.dataset)
-    
+        
         logging.info(f"Knn successully trained, saved file: {str(save_knn_path)}")
         self.model.inference_model.save_knn_func(save_knn_path)
 

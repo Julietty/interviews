@@ -53,7 +53,7 @@ arcface_scale = 5
 samples_per_class = 5
 
 # Inference params
-trunk_path = 'saved_models/trunk_best19.pth'
-embedder_path = 'saved_models/embedder_best19.pth'
+trunk_path = 'saved_models/trunk_best10.pth'
+embedder_path = 'saved_models/embedder_best10.pth'
 
 

@@ -27,9 +27,9 @@ def train():
     data = prepare_broken_data(data, data_cleaning)
     train_df, test_df = get_train_test_data(data, test_size=0.3)
     test_df, val_df = get_train_test_data(data, test_size=0.4)
-    train_df = train_df.to_csv('train_df.csv')
-    test_df = test_df.to_csv('test_df.csv')
-    val_df = val_df.to_csv('val_df.csv')
+    train_df.to_csv('train_df.csv')
+    test_df.to_csv('test_df.csv')
+    val_df.to_csv('val_df.csv')
     num_classes = len(train_df.label.unique())
 
     train_transforms = get_train_transforms(image_size)
@@ -39,7 +39,7 @@ def train():
     test_dataset = ImageDataset(image_dir, test_df, test_transforms)
     
     # Set model
-    model = EfficientNet(device, embedding_size)
+    model = EfficientNet(embedding_size, device)
     
     # Set optimizers
     trunk_optimizer = torch.optim.Adam(model.trunk.parameters(), lr=lr, weight_decay=weight_decay)
